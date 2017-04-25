@@ -19,6 +19,15 @@ enum class TimeInterval {
     YEAR
 }
 
+operator fun MyDate.plus(timeInterval: TimeInterval) = addTimeIntervals(timeInterval, 1)
+
+class RepeatedTimeInterval(val timeInterval: TimeInterval, val num: Int)
+
+operator fun TimeInterval.times(num: Int) = RepeatedTimeInterval(this, num)
+
+operator fun MyDate.plus(timeIntervals: RepeatedTimeInterval) =
+        addTimeIntervals(timeIntervals.timeInterval, timeIntervals.num)
+
 class DateRange(val start: MyDate, val endInclusive: MyDate) : Iterable<MyDate> {
 
     class DateIterator(val dateRange: DateRange) : Iterator<MyDate> {
